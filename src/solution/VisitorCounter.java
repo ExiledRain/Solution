@@ -13,12 +13,32 @@ import java.util.*;
  * @version 1.0
  */
 public class VisitorCounter {
-    private List<Times> timesList = new ArrayList<>();
+    private final List<Times> timesList = new ArrayList<>();
+    private final Map<Integer, ArrayList<Times>> resultingCollection = new HashMap<>();
 
     /**
-     * Method takes human input and starts the algorithm.
-     * */
+     * Method initiates algorithm.
+     * 1.Take input with file location from user.
+     * 2.Parse the document, putting data to timesList collection.
+     * 3.Sort timesList collection.
+     * 4.
+     */
     public void init() {
+        FileReader in = getInput();
+        if (parseFile(in)) {
+            return;
+        }
+        timesList.sort(new TimesComparator());
+        String result = calculateData(timesList);
+        System.out.println(result);
+    }
+
+    /**
+     * Takes user input with file location, and runs until it will get a correct input or Quit command.
+     *
+     * @return FileReader with correctly set file location.
+     */
+    private FileReader getInput() {
         Scanner input = new Scanner(System.in);
         String location;
         FileReader in;
@@ -27,7 +47,7 @@ public class VisitorCounter {
                 System.out.println("Please specify file location io hit Q to exit (You can copy and paste path from the explorer) : ");
                 location = input.nextLine();
                 if (location.isEmpty() || location.equalsIgnoreCase("q")) {
-                    return;
+                    return null;
                 }
                 in = new FileReader(location);
                 break;
@@ -35,6 +55,17 @@ public class VisitorCounter {
                 System.err.println("File location was specified incorrectly, please check your input (You can copy and paste path from the explorer).");
             }
         }
+        return in;
+    }
+
+    /**
+     * Parse text document by line, each parsed line is converted to the Times class and added to the collection.
+     *
+     * @param in FileReader with text file that will be parsed.
+     * @return If file parsed successfully then it will return false.
+     */
+    private boolean parseFile(FileReader in) {
+        if (in == null) return true;
 
         try (BufferedReader fileInput = new BufferedReader(in)) {
             String line;
@@ -45,10 +76,7 @@ public class VisitorCounter {
             System.err.println("Something went wrong,maybe you have empty line in your file or one of them not matching the template");
             e.printStackTrace();
         }
-
-        timesList.sort(new TimesComparator());
-        String result = calculateData(timesList);
-        System.out.println(result);
+        return false;
     }
 
     /**
@@ -88,7 +116,6 @@ public class VisitorCounter {
      */
     private String calculateData(List<Times> timesCollection) {
         int largestNumber = 0;
-        Map<Integer, ArrayList<Times>> resultingCollection = new HashMap<>();
         for (int i = 0; i < timesCollection.size(); i++) {
             int counter = 1;
             Times biggestGap = timesCollection.get(i);
@@ -159,7 +186,7 @@ public class VisitorCounter {
     }
 
     /**
-     * Method compares 2 Solution.Times objects for eligibility and returns gap in time.
+     * Method compares 2 Times objects for eligibility and returns gap in time.
      *
      * @param a 1st Solution.Times object for comparing.
      * @param b 2nd Solution.Times object for comparing.
@@ -173,4 +200,3 @@ public class VisitorCounter {
         }
     }
 }
-
