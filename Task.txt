@@ -1,0 +1,28 @@
+Task
+The Museum visitor system registered all the visits, entrance and leaving times with one
+minute precision. This way system collected N value pairs, where first one indicates the
+time of entrance and second one time of leaving. Please find the time interval, when
+there was the greatest number of visitors in the museum. The entrance and leaving time
+are included. For example, if one visitor arrived at 10:30 and another one leaved at
+10:30 then there were two visitors in museum on that time.
+Expected solution:
+1. Develop the program, that:
+a. Reads the times for input file. The file location is given as first command line
+parameter. The input file is text file where every line has one entrance- and
+leaving time. Example 10:15,14:20 The times can occur in random order
+inside file. You can use included file ‘Visits.txt’ for testing.
+b. Finds the time interval when there were greatest number of visitors inside
+museum. If there are multiple periods with same number, all these need to be
+found.
+c. Displays the results found in previous point in format <begin time>-<end
+time>;<Number of visitors>. Example: 11:12-13:20;6
+d. For example, for input
+10:00,10:30
+10:10,10:40
+10:20,10:50
+the expected output is:
+10:20-10:30;3
+2. Place the source code into folder “Solution\src”.
+3. Describe the algorithm used in text file “Solution description.txt” and save it to
+“Solution” folder.
+4. Document the public methods in source classes.

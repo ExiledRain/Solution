@@ -21,7 +21,8 @@ public class VisitorCounter {
      * 1.Take input with file location from user.
      * 2.Parse the document, putting data to timesList collection.
      * 3.Sort timesList collection.
-     * 4.
+     * 4.Calculate times data.
+     * 5.Print resulting String.
      */
     public void init() {
         FileReader in = getInput();
